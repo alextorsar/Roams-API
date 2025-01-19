@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routes.auth import router as auth_router
 from routes.conversation import router as conversation_router
+from routes.message import router as message_router
 
 app = FastAPI(
     title="Rest API",
@@ -14,3 +15,4 @@ app = FastAPI(
 
 app.include_router(auth_router,prefix="/auth", tags=["Auth"])
 app.include_router(conversation_router,prefix="/conversation", tags=["Conversation"])
+app.include_router(message_router,prefix="/message", tags=["Message"])
