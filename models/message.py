@@ -10,7 +10,7 @@ class Message(Base):
     conversation_id = Column(Integer, ForeignKey('conversations.id'), nullable=True,index=True)
     user_message = Column(String)
     assistant_answer = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
     answered_at = Column(DateTime, default=datetime.utcnow)
     
     conversation = relationship("Conversation", back_populates="messages")
