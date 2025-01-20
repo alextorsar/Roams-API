@@ -6,7 +6,7 @@ Este repositorio contiene una API desarrollada con **FastAPI** para manejar un c
 - Autenticación con tokens JWT.
 - Creación y gestión de conversaciones.
 - Generación de respuestas automáticas utilizando modelos avanzados de lenguaje.
-- Sistema de logging para rastrear solicitudes y respuestas.
+- Sistema de logging para rastrear solicitudes y respuestas que se puede observar en app.log.
 
 ---
 
@@ -43,20 +43,24 @@ Este repositorio contiene una API desarrollada con **FastAPI** para manejar un c
    ALGORITHM="HS256"
    ACCESS_TOKEN_EXPIRE_MINUTES=30
    DATABASE_URL="sqlite:///./app.db"
-   MODEL_NAME="mistralai/Mistral-7B-Instruct-v0.2"
+   ENDPOINT_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
    HUGGINGFACEHUB_API_TOKEN="your_huggingface_api_key"
    ```
-
+5. **Inicializar la base de datos:**
+   Ejecuta el siguiente comando desde la carpeta raíz del proyecto para crear la base de datos SQLite utilizando las configuraciones definidas:
+   ```bash
+   python -m database.init_db
 ---
 
 ## Ejecución de la API
 
 1. **Iniciar el servidor:**
+   Desde la carpeta raíz Roams-API
    ```bash
    uvicorn main:app --reload
    ```
 
-2. **Acceder a la documentación interactiva:**
+3. **Acceder a la documentación interactiva:**
    - Documentación Swagger: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
    - Documentación Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
@@ -85,20 +89,19 @@ Este repositorio contiene una API desarrollada con **FastAPI** para manejar un c
 
 ### 2. **Inicio de sesión**
 - **Endpoint:** `POST /auth/login/`
-- **Cuerpo de la solicitud:**
-  ```json
-  {
-      "username": "alex@gmail.com",
-      "password": "password123"
-  }
-  ```
+- **Cuerpo de la solicitud:** Debe enviarse en formato `x-www-form-urlencoded`
+
+  - **Campos:**
+    - `username`: El correo electrónico del usuario.
+    - `password`: La contraseña del usuario.
+
 - **Respuesta de ejemplo:**
   ```json
   {
       "access_token": "<JWT_TOKEN>",
       "token_type": "bearer"
   }
-  ```
+
 
 ### 3. **Crear una conversación**
 - **Endpoint:** `POST /conversation/`
@@ -148,12 +151,61 @@ Este repositorio contiene una API desarrollada con **FastAPI** para manejar un c
       "answered_at": "2025-01-20T00:01:01"
   }
   ```
-
----
+### 5. **Listar todas las conversaciones de un usuario**
+- **Endpoint:** `GET /conversation/`
+- **Encabezado:**
+  ```json
+  {
+      "Authorization": "Bearer <JWT_TOKEN>"
+  }
+  ```
+- **Respuesta de ejemplo:**
+  ```json
+  [
+      {
+          "id": 1,
+          "title": "The most popular sports",
+          "initial_timestamp": "2025-01-20T00:09:28.824456",
+          "last_update": "2025-01-20T01:09:48.541974"
+      },
+      {
+          "id": 2,
+          "title": "The use of AI in Medicine",
+          "initial_timestamp": "2025-01-20T00:10:28.902090",
+          "last_update": "2025-01-20T00:10:28.902090"
+      }
+  ]
+  ```
+### 6. **Listar los mensajes de una conversación**
+- **Endpoint:** `GET /message/conversation/{conversation_id}`
+- **Encabezado:**
+  ```json
+  {
+      "Authorization": "Bearer <JWT_TOKEN>"
+  }
+- **Respuesta de ejemplo:**
+  ```json
+  [
+      {
+        "id": 1,
+        "user_message": "Which are the most popular sports?",
+        "assistant_answer": "\n        The most popular sports globally vary, but some consistently rank high. Soccer (Football), Cricket, Basketball, American Football, and Tennis are among the top sports with large followings worldwide.",
+        "created_at": "2025-01-20T01:09:48.191907",
+        "answered_at": "2025-01-20T01:09:48.541974"
+    },
+    {
+        "id": 2,
+        "user_message": "Wow, cricket, very surprising, I thought that almost anyone played that sport",
+        "assistant_answer": "\n        Cricket indeed has a large following, particularly in countries like India, Pakistan, Australia, and England. Its popularity might be surprising to some due to its unique rules and long matches.",
+        "created_at": "2025-01-20T01:23:34.346887",
+        "answered_at": "2025-01-20T01:23:35.254352"
+    }
+  ]
+ ---
 
 ## Notas adicionales
 
-- **Compatibilidad:** Este proyecto ha sido probado en Python 3.10 y FastAPI 0.95.0.
+- **Compatibilidad:** Este proyecto ha sido probado en Python 3.11.9 y FastAPI 0.115.6
 - **Contribuciones:** Las contribuciones son bienvenidas. Por favor, abre un issue o un pull request en este repositorio.
 
 ---
