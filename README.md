@@ -101,8 +101,6 @@ Este repositorio contiene una API desarrollada con **FastAPI** para manejar un c
       "access_token": "<JWT_TOKEN>",
       "token_type": "bearer"
   }
-
-
 ### 3. **Crear una conversación**
 - **Endpoint:** `POST /conversation/`
 - **Encabezado:**
@@ -126,7 +124,6 @@ Este repositorio contiene una API desarrollada con **FastAPI** para manejar un c
       "last_update": "2025-01-20T00:00:00"
   }
   ```
-
 ### 4. **Enviar un mensaje en una conversación**
 - **Endpoint:** `POST /message/conversation/{conversation_id}`
 - **Encabezado:**
