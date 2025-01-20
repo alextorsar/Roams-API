@@ -9,5 +9,5 @@ class Settings(BaseSettings):
     algorithm: str = os.getenv('ALGORITHM')
     access_token_expire_minutes: int = os.getenv('DATABASE_URL')
     database_url: str = os.getenv('DATABASE_URL')
-    model_name: str = os.getenv('MODEL_NAME')
+    endpoint_url: str = os.getenv('ENDPOINT_URL')
     auth_token: str = os.getenv('HUGGING_FACE_KEY')

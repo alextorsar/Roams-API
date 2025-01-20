@@ -1,19 +1,16 @@
-import torch
 from langchain_huggingface import HuggingFaceEndpoint
 from langchain_core.output_parsers import StrOutputParser
-from transformers import AutoTokenizer, AutoModelForCausalLM
 from core.settings import Settings
 from models.conversation import Conversation
 from services.prompting import get_initial_prompt_template, get_prompt_template_with_user_message_and_all_previous_messages, get_prompt_template_with_summary_and_recent_messages, get_prompt_template_to_summarize_conversation, get_prompt_template_to_accumulate_summary
-from langchain.prompts import PromptTemplate
 import os
 
-MODEL_NAME = Settings().model_name
 AUTH_TOKEN = Settings().auth_token
+ENDPOINT_URL = Settings().endpoint_url
 os.environ["HUGGINGFACEHUB_API_TOKEN"] = AUTH_TOKEN
 
 llm = HuggingFaceEndpoint(
-    endpoint_url="https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
+    endpoint_url=ENDPOINT_URL,
     model_kwargs={
         "max_length":4096, 
     },
