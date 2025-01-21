@@ -31,12 +31,12 @@ Este repositorio contiene una API desarrollada con **FastAPI** para manejar un c
    venv\Scripts\activate    # Windows
    ```
 
-3. **Instalar dependencias:**
+3. **Instalar dependencias: (Para evitar problemas de permisos se recomienda instalarlas con permisos de administrador)**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Configurar las variables de entorno:**
+5. **Configurar las variables de entorno:**
    Crea un archivo `.env` en el directorio principal con el siguiente contenido:
    ```env
    SECRET_KEY="your_secret_key"
@@ -46,7 +46,7 @@ Este repositorio contiene una API desarrollada con **FastAPI** para manejar un c
    ENDPOINT_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
    HUGGINGFACEHUB_API_TOKEN="your_huggingface_api_key"
    ```
-5. **Inicializar la base de datos:**
+6. **Inicializar la base de datos:**
    Ejecuta el siguiente comando desde la carpeta raíz del proyecto para crear la base de datos SQLite utilizando las configuraciones definidas:
    ```bash
    python -m database.init_db
