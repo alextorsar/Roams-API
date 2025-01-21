@@ -13,12 +13,12 @@ Este repositorio contiene una API desarrollada con **FastAPI** para manejar un c
 ## Instrucciones de instalación
 
 ### Prerrequisitos
-- Python 3.8 o superior.
+- Python 3.8 o superior (Se recomienda una versión estable como Python 3.10 o 3.11, ya que para las versiones más recientes como Python 3.13 muchas librerías aún no tienen soporte, nosotros hemos utilizado Python 3.11.9).
 - Git instalado en tu sistema.
 
 ### Pasos para la instalación
 
-1. **Clonar el repositorio:**
+1. **Clonar el repositorio: (Por evitar conflictos con los permisos, si se trabaja desde Windows se recomienda clonar el repositorio en una carpeta local, que no esté sincronizada con OneDrive)**
    ```bash
    git clone <URL_DEL_REPOSITORIO>
    cd <NOMBRE_DEL_REPOSITORIO>
